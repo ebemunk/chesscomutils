@@ -38,3 +38,7 @@ Once the PGN is constructed, `listen.js` sends a request to `write.php` which li
 
 * TimeControl PGN header not supplied
 * Nice to have: Classify Opening
+
+## Further Resources
+
+[full eco list with moves](http://www.geocities.com/siliconvalley/lab/7378/moves.htm)
