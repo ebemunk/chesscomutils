@@ -1,7 +1,17 @@
-(function(urls){
-	$.each(urls, function(index, url) {
+(function(files){
+	$.each(files, function(index, file) {
 		$('<script/>')
-		.attr('src', url)
+		.attr('src', file.url)
+		.attr('id', file.id)
 		.appendTo(body);
 	});
-})(['http://localhost/ccpgncapture/chess.min.js', 'http://localhost/ccpgncapture/listen.js']);
+})
+([
+	{
+		url: 'http://localhost/ccpgncapture/chess.min.js',
+		id: 'chessjs'
+	},
+	{
+		url: 'http://localhost/ccpgncapture/listen.js',
+		id: 'inject'
+}]);

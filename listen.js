@@ -80,6 +80,10 @@ function capture_button() {
 		.addClass('saving')
 		.css('color', 'green');
 
+		/*cometd.subscribe('/service/*', function(msg) {
+			console.log(msg);
+		});
+		return;*/
 		/**
 		 * subscribe to cometd /service/game channel. this channel seems to be used for transmitting
 		 * "EndGame" packets which have information about the game that has ended (that the user was viewing).
@@ -191,13 +195,26 @@ function capture_button() {
 	}
 }
 
+function test_os() {
+	console.log('a',$('.notation'));
+};
+
 //init function, sets up the link for the script
 (function() {
+	//console.log('ye', window.ccpgn_active);
+	if(window.ccpgn_active) {
+		if($('#ccpgn_btn').hasClass('saving')) {
+			$('#ccpgn_btn').click();
+		}
+		$('#ccpgn_btn').off('click').click(test_os);
+		return;
+	}
+	window.ccpgn_active = true;
 	var li = $('<li/>');
 	var a = $('<a/>')
 	.html('PGNcapture: Off')
 	.attr({'href': '#', 'id': 'ccpgn_btn'})
 	.addClass('bold')
-	.click(capture_button);
+	.click(test_os);
     $('#top_bar_settings').append(li.append(a));
 })();
