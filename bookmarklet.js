@@ -9,15 +9,15 @@
 })
 ([
 	{
-		url: 'http://localhost/ccpgncapture/chess.min.js',
+		url: 'http://localhost/chesscomutils/chess.min.js',
 		id: 'chessjs'
 	},
 	{
-		url: 'http://localhost/ccpgncapture/openings.js',
+		url: 'http://localhost/chesscomutils/openings.js',
 		id: 'openings'
 	},
 	{
-		url: 'http://localhost/ccpgncapture/listen.js',
+		url: 'http://localhost/chesscomutils/listen.js',
 		id: 'inject'
 	}
 ]);
