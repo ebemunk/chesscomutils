@@ -58,6 +58,7 @@ var end_game_channel_sub;
 //keep track of games captured
 var games = {};
 //var game_times = {};
+var openings;
 
 //captures messages sent by cometd and parses the games
 function capture_button() {
@@ -195,8 +196,57 @@ function capture_button() {
 	}
 }
 
+function classify_opening(notation) {
+	var movetext = '';
+	notation.find('.notationVertical').each(function(i, v) {
+		if(i > 1) return false;
+		movetext += $(v).find('.num').text();
+		$(v).find('.gotomove').each(function(ii, n) {
+			movetext += $(n).text() + ' ';
+		});
+	});
+	console.log(movetext.trim());
+	console.log(window.ccUtil_openings[movetext.trim()]);
+}
+
 function test_os() {
-	console.log('a',$('.notation'));
+	var notation = $('div[id^="notation_"]');
+	console.log('notation', notation);
+
+	var id = notation.attr('id').replace('notation_', '');
+	console.log('id', id);
+
+	var flip_btn = $('#flip-button_'+id);
+
+	if(!$('#ccpgn_opening').length) {
+		$('<div/>')
+		.text('Opening: ')
+		.css({
+			'position': 'fixed',
+			'top': 38,
+			'left': 5,
+			'background-color': '#6a943f',
+			'z-index': 9,
+			'color': 'White'
+		})
+		.attr('id', 'ccpgn_opening')
+		.appendTo($(body));
+	}
+
+	var observer = new MutationObserver(function(mutations) {
+	    /*mutations.forEach(function(mutation) {
+	    	console.log('der');
+	        for(var i = 0; i < mutation.addedNodes.length; i++) {
+	            insertedNodes.push(mutation.addedNodes[i]);
+	            console.log($(mutation.addedNodes[i]));
+	        }
+	    })*/
+		classify_opening(notation);
+	});
+	observer.observe(notation[0], {
+	    childList: true,
+	    subtree: true
+	});
 };
 
 //init function, sets up the link for the script
@@ -216,5 +266,6 @@ function test_os() {
 	.attr({'href': '#', 'id': 'ccpgn_btn'})
 	.addClass('bold')
 	.click(test_os);
-    $('#top_bar_settings').append(li.append(a));
+
+	$('#top_bar_settings').append(li.append(a));
 })();
