@@ -16,7 +16,7 @@
 			});
 		});
 		return opening;
-		//console.log(movetext.trim());
+		//console.log(movetext.trim()); 
 		//console.log(CC.openings[movetext.trim()]);
 	}
 
