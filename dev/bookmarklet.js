@@ -1,6 +1,7 @@
 (function(files){
+	window.CC = {};
 	$.each(files, function(index, file) {
-		$('#'+file.id).remove(); //keep dom clean on refresh
+		$('#'+file.id).remove();
 		$('<script/>')
 		.attr('src', file.url)
 		.attr('id', file.id)
@@ -17,7 +18,11 @@
 		id: 'openings'
 	},
 	{
-		url: 'http://localhost/chesscomutils/listen.js',
+		url: 'http://localhost/chesscomutils/openings_fen.js',
+		id: 'openings_fen'
+	},
+	{
+		url: 'http://localhost/chesscomutils/ccutils.js',
 		id: 'inject'
 	}
 ]);

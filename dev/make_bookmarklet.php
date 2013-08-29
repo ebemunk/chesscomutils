@@ -9,4 +9,4 @@ $compressed = 'javascript:';
 //replace all whitespace
 $compressed .= preg_replace('/\s+/', '', $bookmarklet);
 
-file_put_contents('bookmarklet.txt', $compressed);
+file_put_contents('../bookmarklet.txt', $compressed);
