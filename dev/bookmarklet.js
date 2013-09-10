@@ -1,5 +1,13 @@
 (function(files){
+	if(window.CC) {
+		if(window.CC.service_game_channel) {
+			cometd.unsubscribe(window.CC.service_game_channel);
+		}
+		clearInterval(window.CC.opening_checker);
+	}
+
 	window.CC = {};
+
 	$.each(files, function(index, file) {
 		$('#'+file.id).remove();
 		$('<script/>')
@@ -7,10 +15,11 @@
 		.attr('id', file.id)
 		.appendTo(body);
 	});
+
 })
 ([
 	{
-		url: 'http://localhost/chesscomutils/chess.min.js',
+		url: 'http://localhost/chesscomutils/chess.js',
 		id: 'chessjs'
 	},
 	{
