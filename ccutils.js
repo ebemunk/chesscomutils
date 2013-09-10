@@ -4,20 +4,23 @@
 	"use strict";
 
 	window.CC = {
+		// classify opening given an array of moves from the SCID opening book
 		classify_opening: function(moves) {
-			var game = new Chess();
-			var movetext = '';
+			var game = new Chess(); //used to get FEN for every move
+			var movetext = ''; //used to directly search by move order
 			var op_moves, op_fen;
 			$.each(moves, function(i, v) {
-				if(i == 0) {	
+				//write move number
+				if(i == 0) {
 					movetext += '1.';
 				} else if(i % 2 == 0) {
 					movetext += (i/2)+1 + '.';
 				}
-				movetext += v + ' ';
+				movetext += v + ' '; //append move text
 
 				game.move(v);
 
+				//assign only if found
 				var cur_opening = CC.openings[movetext.trim()];
 				if(cur_opening) {
 					op_moves = cur_opening;
@@ -33,48 +36,37 @@
 				fen: op_fen
 			};
 		},
+		// get the opening of the game that has a visible notation window
 		get_opening: function() {
 			var notation = $('div[id^="notation_"]:visible');
-			if(!notation.length) {
+			if(!notation.length) { //clear if no visible notation
 				$('#ccutils_opening_moves').text('');
 				$('#ccutils_opening_fen').text('');
 				return;
 			}
 			//console.log('notation', notation);
 
-			var id = notation.attr('id').replace('notation_', '');
+			//var id = notation.attr('id').replace('notation_', '');
 			//console.log('id', id);
 
-			var game = new Chess();
-			var movetext = '';
-			var op_moves, op_fen;
-
+			var moves = [];
 			notation.find('.notationVertical').each(function(i, v) {
-				movetext += $(v).find('.num').text();
 				$(v).find('.gotomove').each(function(ii, n) {
-					movetext += $(n).text() + ' ';
-					game.move($(n).text());
-
-					var cur_opening = CC.openings[movetext.trim()];
-					if(cur_opening) {
-						op_moves = cur_opening;
-					}
-
-					var cur_fen = CC.openings_fen[game.fen()];
-					if(cur_fen) {
-						op_fen = cur_fen;
-					}
+					moves.push($(n).text());
 				});
 			});
 
-			if(op_moves) {
-				$('#ccutils_opening_moves').text('Opening: ' + op_moves.eco + ': ' + ' ' + op_moves.name + ' (' + op_moves.moves + ')');
+			var opening = CC.classify_opening(moves);
+
+			// write to green bar
+			if(opening.moves) {
+				$('#ccutils_opening_moves').text('Opening: ' + opening.moves.eco + ': ' + ' ' + opening.moves.name + ' (' + opening.moves.moves + ')');
 			} else {
 				$('#ccutils_opening_moves').text('Opening: N/A');
 			}
 
-			if(op_fen) {
-				$('#ccutils_opening_fen').text('Position: ' + op_fen.eco + ': ' + ' ' + op_fen.name + ' (' + op_fen.moves + ')');
+			if(opening.fen) {
+				$('#ccutils_opening_fen').text('Position: ' + opening.fen.eco + ': ' + ' ' + opening.fen.name + ' (' + opening.fen.moves + ')');
 			} else {
 				$('#ccutils_opening_fen').text('Position: N/A');
 			}
@@ -156,7 +148,6 @@
 			}
 			*/
 			if(msg.data.game.status == 'finished') { //found a finished game
-				console.log('girdi1', msg);
 				var game = CC.decode_moves(msg.data.game.moves); //decode moves
 				var game_opening = CC.classify_opening(game.history()); //classify opening
 
@@ -229,8 +220,8 @@
 					'Termination', termination,
 					'ECO', game_opening.moves.eco,
 					'Opening', game_opening.moves.name,
-					'Variation', game_opening.fen.eco + ': ' + game_opening.fen.name,
-					'Kerkuk', 'amcik'
+					//non-standard, using to store openings from FEN
+					'Position', game_opening.fen.eco + ': ' + game_opening.fen.name
 				);
 
 				//console.log('pgn', game.pgn());
@@ -287,6 +278,7 @@
 		}
 	};
 
+	//remove old ui components if bookmarklet is refreshed
 	if($('#ccutils_wrapper').length) {
 		$('#ccutils_opening').off();
 		$('#ccutils_wrapper').remove();
@@ -295,8 +287,10 @@
 		$('#main_bc').css('margin-top', '25px');
 	}
 
+	//timer to classify openings
 	window.CC.opening_checker = setInterval(CC.get_opening, 5000);
 
+	//ui additions
 	var div_wrapper = $('<div/>')
 	.attr('id', 'ccutils_wrapper')
 	.css({

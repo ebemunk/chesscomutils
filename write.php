@@ -1,7 +1,5 @@
 <?php
-/////////////////////////////////////////////////////
-//very simple php script to facilitate file output //
-/////////////////////////////////////////////////////
+//very simple php script to facilitate file output
 
 //allow requests from live.chess.com where our script is injected
 header("Access-Control-Allow-Origin: http://live.chess.com");

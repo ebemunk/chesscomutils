@@ -1,3 +1,4 @@
+// extract FEN positions from the openings to construct openings_fen.js
 function extract_fen() {
 	var obj = {};
 	$.each(CC.openings, function(key, val) {

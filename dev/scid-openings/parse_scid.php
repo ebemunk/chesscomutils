@@ -1,5 +1,5 @@
 <?php
-
+//converts scid.eco from SCID openings database to a JS object
 //open file
 $lol = file_get_contents('scid.eco', 'r');
 //remove all newlines except * (which marks end of opening def)
