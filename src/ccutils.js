@@ -40,7 +40,7 @@
 		get_opening: function() {
 			var notation = $('div[id^="notation_"]:visible');
 			if(!notation.length) { //clear if no visible notation
-				$('#ccutils_opening_moves').text('');
+				$('#ccutils_opening_moves').text('Notation window not visible.');
 				$('#ccutils_opening_fen').text('');
 				return;
 			}
@@ -58,15 +58,22 @@
 
 			var opening = CC.classify_opening(moves);
 
+			var new_opening_text, new_fen_text;
 			// write to green bar
 			if(opening.moves) {
-				$('#ccutils_opening_moves').text('Opening: ' + opening.moves.eco + ': ' + ' ' + opening.moves.name + ' (' + opening.moves.moves + ')');
+				new_opening_text = 'Opening: ' + opening.moves.eco + ': ' + ' ' + opening.moves.name + ' (' + opening.moves.moves + ')';
+				if($('#ccutils_opening_moves').text() != new_opening_text) {
+					$('#ccutils_opening_moves').text(new_opening_text);
+				}
 			} else {
 				$('#ccutils_opening_moves').text('Opening: N/A');
 			}
 
 			if(opening.fen) {
-				$('#ccutils_opening_fen').text('Position: ' + opening.fen.eco + ': ' + ' ' + opening.fen.name + ' (' + opening.fen.moves + ')');
+				new_fen_text = 'Position: ' + opening.fen.eco + ': ' + ' ' + opening.fen.name + ' (' + opening.fen.moves + ')';
+				if($('#ccutils_opening_fen').text() != new_fen_text) {
+					$('#ccutils_opening_fen').text(new_fen_text);
+				}
 			} else {
 				$('#ccutils_opening_fen').text('Position: N/A');
 			}
@@ -340,4 +347,5 @@
 	.click(window.CC.toggle_pgn_capture);
 
 	$('#top_bar_settings').append($('<li/>').append(a_capture));
+	$('#ccutils_capture').click();
 })();

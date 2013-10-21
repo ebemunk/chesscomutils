@@ -19,19 +19,19 @@
 })
 ([
 	{
-		url: 'http://localhost/chesscomutils/chess.js',
+		url: 'http://localhost/chesscomutils/chess.min.js',
 		id: 'chessjs'
 	},
 	{
-		url: 'http://localhost/chesscomutils/openings.js',
+		url: 'http://localhost/chesscomutils/openings.min.js',
 		id: 'openings'
 	},
 	{
-		url: 'http://localhost/chesscomutils/openings_fen.js',
+		url: 'http://localhost/chesscomutils/openings_fen.min.js',
 		id: 'openings_fen'
 	},
 	{
-		url: 'http://localhost/chesscomutils/ccutils.js',
+		url: 'http://localhost/chesscomutils/ccutils.min.js',
 		id: 'inject'
 	}
 ]);
