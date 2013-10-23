@@ -1,4 +1,5 @@
-window.CC.openings_fen = {
+$.extend(CC, {
+    openings_fen: {
     "rnbqkbnr/pppppppp/8/8/8/5P2/PPPPP1PP/RNBQKBNR b KQkq - 0 1": {
         "eco": "A00b",
         "name": "Barnes Opening",
@@ -45749,4 +45750,5 @@ window.CC.openings_fen = {
         "name": "King's Indian: Mar del Plata",
         "moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be2 e5 7.O-O Nc6 8.d5 Ne7 9.Ne1 Nd7 10.f3 f5 11.Be3 f4 12.Bf2 g5 13.a4 Ng6"
     }
-};
+    }
+});
