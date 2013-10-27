@@ -106,9 +106,9 @@
 			}
 			if(opening_fen) {
 				if(opening_moves.substr(8) == opening_fen.substr(9)) {
-					$('.chatInputGameWrapper input[id^=chatInput_]').first().val(opening_moves);
+					$('.chatInputGameWrapper input[id^=chatInput_]:visible').first().val(opening_moves);
 				} else {
-					$('.chatInputGameWrapper input[id^=chatInput_]').first().val(opening_fen);
+					$('.chatInputGameWrapper input[id^=chatInput_]:visible').first().val(opening_fen);
 				}
 				$('.chatInputGameWrapper button[id^=chatInputButton_]').click();
 				CC.flash_keyboard_icon();
