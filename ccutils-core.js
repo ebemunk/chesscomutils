@@ -52,6 +52,12 @@
 				return;
 			}
 
+			if(notation.length > 1) { //cannot support pop-out at this time
+				$('#ccutils_opening_moves').text('Cannot run when games popped-out.');
+				$('#ccutils_opening_fen').text(':(');
+				return;
+			}
+
 			var moves = [];
 			notation.find('.notationVertical').each(function(i, v) {
 				$(v).find('.gotomove').each(function(ii, n) {
