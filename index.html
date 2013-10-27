@@ -81,26 +81,6 @@
 			ga('create', 'UA-212741-7', 'ebemunk.github.io');
 			ga('send', 'pageview');
 		</script>
-		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-		<script>
-			$(function() {
-				$('#online-bookmarklet')
-					.on('click', function(e) {
-						//dont inject to this site!
-						ga('send', 'event', 'bookmarklet-link', 'click');
-						e.stopPropagation();
-						e.preventDefault();
-						return false;
-					})
-					.on('dragstart', function(e) {
-						ga('send', 'event', 'bookmarklet-link', 'dragged');
-					});
-
-				$('#github-link').on('click', function(e) {
-					ga('send', 'event', 'github-link', 'click');
-				});
-			});
-		</script>
 	</head>
 	<body class="container">
 			<div class="jumbotron">
@@ -192,5 +172,25 @@
 			<li><a href="http://scid.sourceforge.net/" target="_blank">SCID</a> Openings Database <code><a href="http://sourceforge.net/p/scid/code/ci/master/tree/scid.eco" target="_blank">scid.eco</a></code> - Contains an immense number of openings, incredibly comprehensive (and easy to parse as json :P). The software itself is a great free alternative to many other chess database GUIs.</li>
 			</ul>
 		</div>
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script>
+			$(function() {
+				$('#online-bookmarklet')
+					.on('click', function(e) {
+						//dont inject to this site!
+						ga('send', 'event', 'bookmarklet-link', 'click');
+						e.stopPropagation();
+						e.preventDefault();
+						return false;
+					})
+					.on('dragstart', function(e) {
+						ga('send', 'event', 'bookmarklet-link', 'dragged');
+					});
+
+				$('#github-link').on('click', function(e) {
+					ga('send', 'event', 'github-link', 'click');
+				});
+			});
+		</script>
 	</body>
 </html>
