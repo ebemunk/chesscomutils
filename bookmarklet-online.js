@@ -51,7 +51,7 @@
 		id: 'openings'
 	},
 	{
-		url: 'http://direct.ebemunk.com/chesscomutils/ccutils.min.js',
+		url: 'http://direct.ebemunk.com/chesscomutils/ccutils-bundled.min.js',
 		id: 'ccutils'
 	}
 ]);
