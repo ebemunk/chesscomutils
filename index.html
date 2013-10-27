@@ -68,6 +68,9 @@
 				margin-left: 2em;
 				margin-bottom: 0.45em;
 			}
+			#online-bookmarklet {
+				cursor: move;
+			}
 		</style>
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -77,6 +80,26 @@
 
 			ga('create', 'UA-212741-7', 'ebemunk.github.io');
 			ga('send', 'pageview');
+		</script>
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script>
+			$(function() {
+				$('#online-bookmarklet')
+					.on('click', function(e) {
+						//dont inject to this site!
+						ga('send', 'event', 'bookmarklet-link', 'click');
+						e.stopPropagation();
+						e.preventDefault();
+						return false;
+					})
+					.on('dragstart', function(e) {
+						ga('send', 'event', 'bookmarklet-link', 'dragged');
+					});
+
+				$('#github-link').on('click', function(e) {
+					ga('send', 'event', 'github-link', 'click');
+				});
+			});
 		</script>
 	</head>
 	<body class="container">
@@ -106,7 +129,7 @@
 						<li>Keyboard Shortcuts</li>
 					</ul>
 					<div style="margin-top: 50px">
-						<a href="javascript:alert('lol');" class="btn btn-default btn-lg btn-block"><i class="fa fa-move"></i> Drag to Bookmarks Bar</a>
+						<a href='javascript:"use strict";(function(files){if(typeof window.CC!="undefined"){if(CC.service_game_channel){cometd.unsubscribe(CC.service_game_channel);CC.service_game_channel=null}if(CC.game_all_channel){cometd.unsubscribe(CC.game_all_channel);CC.game_all_channel=null}clearInterval(CC.opening_checker);clearTimeout(CC.idle_avoidance)}if($("#ccutils_wrapper").length){$("#ccutils_opening").off();$("#ccutils_wrapper").remove();$("#ccutils_capture").off().parent().remove();$("#ccutils_keyboard_icon").off().remove()}else{$("#main_bc").css("margin-top","25px")}if(typeof window.Mousetrap!="undefined"){Mousetrap.reset()}window.CC={};$.each(files,function(index,file){$("#"+file.id).remove();$("<script/>").attr("src",file.url).attr("id",file.id).appendTo(body)})})([{url:"http://ebemunk.com/chesscomutils/openings.min.js",id:"openings"},{url:"http://direct.ebemunk.com/chesscomutils/ccutils-bundled.min.js",id:"ccutils"}]);' class="btn btn-default btn-lg btn-block" id="online-bookmarklet" title="Drag this to your Bookmarks bar!"><i class="fa fa-move"></i> chesscomutils</a>
 					</div>
 				</div>
 			</div>
@@ -123,7 +146,7 @@
 						<li>Save games to PGN file</li>
 					</ul>
 					<div style="margin-top: 30px">
-						<a href="http://github.com/ebemunk/chesscomutils/" class="btn btn-default btn-lg btn-block"><i class="fa fa-github"></i> Check it out on Github</a>
+						<a href="http://github.com/ebemunk/chesscomutils/" class="btn btn-default btn-lg btn-block" title="Snoop around in the code."><i class="fa fa-github"></i> Check it out on Github</a>
 					</div>
 				</div>
 			</div>
@@ -164,9 +187,9 @@
 			<h3>Credits</h3>
 			<p>I've had the pleasure of using these brilliant libraries:</p>
 			<ul>
-			<li><a href="https://github.com/jhlywa/chess.js" target="_blank">Chess.js</a> - very solid library, used for creating FEN from game state and saving file as PGN. Licenced under MIT.</li>
-			<li><a href="http://craig.is/killing/mice" target="_blank">Mousetrap.js</a> - increadibly easy to use, used for keyboard shortcuts. Licenced under MIT.</li>
-			<li><a href="http://scid.sourceforge.net/" target="_blank">SCID</a> Openings Database <code><a href="http://sourceforge.net/p/scid/code/ci/master/tree/scid.eco" target="_blank">scid.eco</a></code> - Contains an immense number of openings, incredibly comprehensive (and easy to parse as json :P). The software itself is a great free alternative to many other chess database GUIs. Licenced under MIT.</li>
+			<li><a href="https://github.com/jhlywa/chess.js" target="_blank">Chess.js</a> - very solid library, used for creating FEN from game state and saving file as PGN.</li>
+			<li><a href="http://craig.is/killing/mice" target="_blank">Mousetrap.js</a> - increadibly easy to use, used for keyboard shortcuts.</li>
+			<li><a href="http://scid.sourceforge.net/" target="_blank">SCID</a> Openings Database <code><a href="http://sourceforge.net/p/scid/code/ci/master/tree/scid.eco" target="_blank">scid.eco</a></code> - Contains an immense number of openings, incredibly comprehensive (and easy to parse as json :P). The software itself is a great free alternative to many other chess database GUIs.</li>
 			</ul>
 		</div>
 	</body>
