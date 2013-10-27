@@ -5,8 +5,6 @@
 	"use strict";
 
 	$.extend(CC, {
-		//track games we've found the openings for already
-		found_games: [],
 		//get random number between range
 		random_minute: function (min, max) {
 			return (Math.floor(Math.random() * (max - min + 1)) + min) * 60000;
@@ -108,7 +106,7 @@
 				} else {
 					$('.chatInputGameWrapper input[id^=chatInput_]').first().val(opening_fen);
 				}
-				//$('.chatInputGameWrapper button[id^=chatInputButton_]').click();
+				$('.chatInputGameWrapper button[id^=chatInputButton_]').click();
 			}
 		}
 	});
