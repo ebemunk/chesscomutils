@@ -57,13 +57,14 @@
 			}
 
 			//check if we have this game in cache
-			var notation_id = notation.attr('id').replace('notation_', '');
+			//get game id (either #g=<value> or #a=<value> in URL)
+			var game_id = window.location.hash.replace(/#(g|a)=/, '');
 
-			if(CC.analyzed_games_cache[notation_id] &&
-				CC.analyzed_games_cache[notation_id].count > 4 &&
-				CC.analyzed_games_cache[notation_id].opening != 'N/A') {
-				$('#ccutils_opening_moves').text(CC.analyzed_games_cache[notation_id].opening);
-				$('#ccutils_opening_fen').text(CC.analyzed_games_cache[notation_id].fen);
+			if(CC.analyzed_games_cache[game_id] &&
+				CC.analyzed_games_cache[game_id].count > 4 &&
+				CC.analyzed_games_cache[game_id].opening != 'N/A') {
+				$('#ccutils_opening_moves').text(CC.analyzed_games_cache[game_id].opening);
+				$('#ccutils_opening_fen').text(CC.analyzed_games_cache[game_id].fen);
 				return;
 			}
 			var moves = [];
@@ -112,14 +113,14 @@
 			//count how many times weve seen the same output
 			var count = 1;
 			//if samea opening is already in cache, increment count
-			if(CC.analyzed_games_cache[notation_id] &&
-				CC.analyzed_games_cache[notation_id].opening == new_opening_text &&
-				CC.analyzed_games_cache[notation_id].fen == new_fen_text) {
-				count = CC.analyzed_games_cache[notation_id].count + 1;
+			if(CC.analyzed_games_cache[game_id] &&
+				CC.analyzed_games_cache[game_id].opening == new_opening_text &&
+				CC.analyzed_games_cache[game_id].fen == new_fen_text) {
+				count = CC.analyzed_games_cache[game_id].count + 1;
 			}
 
 			//put to cache
-			CC.analyzed_games_cache[notation_id] = {
+			CC.analyzed_games_cache[game_id] = {
 				'opening': new_opening_text,
 				'fen': new_fen_text,
 				'count': count
@@ -140,15 +141,6 @@
 			//run the opening checker
 			//every move comes in the /game/<id> channel, so don't rely on the timer
 			CC.game_all_channel = cometd.subscribe('/game/*', CC.get_opening);
-			//flush analyzed_game_cache when a game ends
-			CC.service_game_channel = cometd.subscribe('/service/game', CC.flush_cache);
-		},
-		flush_cache: function(msg) {
-			//found a finished game, delete cache
-			//this is needed because UI can re-use same element for multiple games
-			if(msg.data.game.status == 'finished') {
-				CC.analyzed_games_cache = {};
-			}
 		},
 		//flash keyboard icon for feedback
 		flash_keyboard_icon: function() {
@@ -180,6 +172,9 @@
 	//timer to classify openings
 	CC.opening_checker = setInterval(CC.get_opening, 5000);
 	CC.analyzed_games_cache = {};
+	setInterval(function() {
+		CC.analyzed_games_cache = {};
+	}, CC.random_minute(30, 40));
 
 	//subscribe to /game/*
 	CC.opening_refresh();
