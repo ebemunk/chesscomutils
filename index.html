@@ -71,6 +71,11 @@
 			#online-bookmarklet {
 				cursor: move;
 			}
+			.section {
+				border-bottom: 2px solid;
+				border-bottom-color: rgb(106, 148, 63);
+				padding-bottom: 5px;
+			}
 		</style>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -148,16 +153,17 @@
 			</div>
 		</div>
 		
-		<div>
+		<div class="section">
 			<h3>Setup</h3>
 
 			<h4>Online</h4>
 			<p>Drag the button above to your bookmarks bar (or save it as a bookmark). Afterwards, you can activate chesscomutils by clicking on the bookmark while you're in live chess. You will see the green bar appear below the menu.</p>
+
 			<h4>Local</h4>
 			<p>Refer to <code><a href="https://github.com/ebemunk/chesscomutils/blob/master/README.md" target="_blank">README.md</a></code> for setup details.</p>
 		</div>
 
-		<div>
+		<div class="section">
 			<h3>Usage</h3>
 			
 			<h4>Opening Classification</h4>
@@ -178,14 +184,23 @@
 			<p>If you're using the full version, chesscomutils will make an AJAX request to <code>writer.php</code>, which will save games (and keep appending games to the same file) defined in its config. See the notes on project <code><a href="https://github.com/ebemunk/chesscomutils/blob/master/README.md" target="_blank">README.md</a></code> for more information.</p>
 			<p>By clicking on the 'Capture PGN' button you can toggle capturing the games as PGN format. Any game that finishes while PGN Capture is on will be saved to your defined location on disk. It will provide all the standards headers (except Time Control, which is bit tricky to get), ECO and Opening headers, as well as a non-standard Position header with the FEN classification. Note: ccutils will capture all games that finish while its active. This means having multiple games open (popped-out or not) will save all of them once they finish. Games are only saved on disk when they're ended.</p>
 		</div>
+
+		<div class="section">
+			<h3>Changelog</h3>
+			<h4>4 Nov 2013</h4>
+			<ul>
+				<li>Opening checker can now also read Analysis tabs.</li>
+				<li>Small performance improvement for opening classifier: rudimentary cache prevents re-calculating opening many times after opening has been established. This should cut down resource-hogging for long/fast games.</li>
+			</ul>
+		</div>
 		
 		<div>
 			<h3>Credits</h3>
 			<p>I've had the pleasure of using these brilliant libraries:</p>
 			<ul>
-			<li><a href="https://github.com/jhlywa/chess.js" target="_blank">Chess.js</a> - very solid library, used for creating FEN from game state and saving file as PGN.</li>
-			<li><a href="http://craig.is/killing/mice" target="_blank">Mousetrap.js</a> - increadibly easy to use, used for keyboard shortcuts.</li>
-			<li><a href="http://scid.sourceforge.net/" target="_blank">SCID</a> Openings Database <code><a href="http://sourceforge.net/p/scid/code/ci/master/tree/scid.eco" target="_blank">scid.eco</a></code> - Contains an immense number of openings, incredibly comprehensive (and easy to parse as json :P). The software itself is a great free alternative to many other chess database GUIs.</li>
+				<li><a href="https://github.com/jhlywa/chess.js" target="_blank">Chess.js</a> - very solid library, used for creating FEN from game state and saving file as PGN.</li>
+				<li><a href="http://craig.is/killing/mice" target="_blank">Mousetrap.js</a> - increadibly easy to use, used for keyboard shortcuts.</li>
+				<li><a href="http://scid.sourceforge.net/" target="_blank">SCID</a> Openings Database <code><a href="http://sourceforge.net/p/scid/code/ci/master/tree/scid.eco" target="_blank">scid.eco</a></code> - Contains an immense number of openings, incredibly comprehensive (and easy to parse as json :P). The software itself is a great free alternative to many other chess database GUIs.</li>
 			</ul>
 		</div>
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
