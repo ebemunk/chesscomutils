@@ -56,39 +56,103 @@
 				return;
 			}
 
+			//check if we have this game in cache
+			var notation_id = notation.attr('id').replace('notation_', '');
+
+			if(CC.analyzed_games_cache[notation_id]
+				&& CC.analyzed_games_cache[notation_id].count > 4
+				&& CC.analyzed_games_cache[notation_id].opening != 'N/A') {
+				$('#ccutils_opening_moves').text(CC.analyzed_games_cache[notation_id].opening);
+				$('#ccutils_opening_fen').text(CC.analyzed_games_cache[notation_id].fen);
+				console.log('cache hit');
+				return;
+			}
+			console.log('no cache');
 			var moves = [];
-			notation.find('.notationVertical').each(function(i, v) {
-				$(v).find('.gotomove').each(function(ii, n) {
-					moves.push($(n).text());
+			//to handle analysis tabs as well, we check both notationVertical and notationHorizontal
+			var notations;
+			notations = notation.find('.notationVertical');
+			if(notations.length) {
+				notations.each(function(i, v) {
+					$(v).find('.gotomove').each(function(ii, n) {
+						moves.push($(n).text());
+					});
 				});
-			});
+			} else {
+				notations = notation.find('.notationHorizontal');
+				if(notations.length) {
+					notations.each(function(i, v) {
+						$(v).find('.gotomove').each(function(ii, n) {
+							//strip out move numbers in horizontal variation
+							var regx = $(n).text().match(/\d*\.\s*(.*)/);
+							if(regx) {
+								moves.push(regx[1]);
+							} else {
+								moves.push($(n).text());
+							}
+						});
+					});
+				}
+			}
 
 			var opening = CC.classify_opening(moves);
-
+			
+			//construct opening moves texts
 			var new_opening_text, new_fen_text;
-			if(opening.moves) { // write to green bar
+			if(opening.moves) {
 				new_opening_text = 'Opening: ' + opening.moves.eco + ': ' + ' ' + opening.moves.name + ' (' + opening.moves.moves + ')';
-				if($('#ccutils_opening_moves').text() != new_opening_text) {
-					$('#ccutils_opening_moves').text(new_opening_text);
-				}
 			} else {
-				$('#ccutils_opening_moves').text('Opening: N/A');
+				new_opening_text = 'N/A';
 			}
 
 			if(opening.fen) {
 				new_fen_text = 'Position: ' + opening.fen.eco + ': ' + ' ' + opening.fen.name + ' (' + opening.fen.moves + ')';
-				if($('#ccutils_opening_fen').text() != new_fen_text) {
-					$('#ccutils_opening_fen').text(new_fen_text);
-				}
 			} else {
-				$('#ccutils_opening_fen').text('Position: N/A');
+				new_fen_text = 'N/A';
+			}
+
+			//count how many times weve seen the same output
+			var count = 1;
+			//if samea opening is already in cache, increment count
+			if(CC.analyzed_games_cache[notation_id]
+				&& CC.analyzed_games_cache[notation_id].opening == new_opening_text
+				&& CC.analyzed_games_cache[notation_id].fen == new_fen_text) {
+				count = CC.analyzed_games_cache[notation_id].count + 1;
+			}
+
+			//put to cache
+			CC.analyzed_games_cache[notation_id] = {
+				'opening': new_opening_text,
+				'fen': new_fen_text,
+				'count': count
+			};
+
+			//write text to green bar
+			if($('#ccutils_opening_moves').text() != new_opening_text) {
+				$('#ccutils_opening_moves').text(new_opening_text);
+			}
+
+			if($('#ccutils_opening_fen').text() != new_fen_text) {
+				$('#ccutils_opening_fen').text(new_fen_text);
 			}
 		},
 		//subscribe to /game/* to refresh opening checker
-		opening_refresh: function(msg) {
+		//and /service/game to flush cache
+		opening_refresh: function() {
 			//run the opening checker
 			//every move comes in the /game/<id> channel, so don't rely on the timer
 			CC.game_all_channel = cometd.subscribe('/game/*', CC.get_opening);
+			//flush analyzed_game_cache when a game ends
+			CC.service_game_channel = cometd.subscribe('/service/game', CC.flush_cache);
+		},
+		flush_cache: function(msg) {
+			//found a finished game, delete cache
+			console.log(msg);
+			//this is needed because UI can re-use same element for multiple games
+			if(msg.data.game.status == 'finished') {
+				console.log('flushing');
+				CC.analyzed_games_cache = {};
+			}
 		},
 		//flash keyboard icon for feedback
 		flash_keyboard_icon: function() {
@@ -119,6 +183,7 @@
 
 	//timer to classify openings
 	CC.opening_checker = setInterval(CC.get_opening, 5000);
+	CC.analyzed_games_cache = {};
 
 	//subscribe to /game/*
 	CC.opening_refresh();
