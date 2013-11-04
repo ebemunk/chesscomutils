@@ -59,15 +59,13 @@
 			//check if we have this game in cache
 			var notation_id = notation.attr('id').replace('notation_', '');
 
-			if(CC.analyzed_games_cache[notation_id]
-				&& CC.analyzed_games_cache[notation_id].count > 4
-				&& CC.analyzed_games_cache[notation_id].opening != 'N/A') {
+			if(CC.analyzed_games_cache[notation_id] &&
+				CC.analyzed_games_cache[notation_id].count > 4 &&
+				CC.analyzed_games_cache[notation_id].opening != 'N/A') {
 				$('#ccutils_opening_moves').text(CC.analyzed_games_cache[notation_id].opening);
 				$('#ccutils_opening_fen').text(CC.analyzed_games_cache[notation_id].fen);
-				console.log('cache hit');
 				return;
 			}
-			console.log('no cache');
 			var moves = [];
 			//to handle analysis tabs as well, we check both notationVertical and notationHorizontal
 			var notations;
@@ -114,9 +112,9 @@
 			//count how many times weve seen the same output
 			var count = 1;
 			//if samea opening is already in cache, increment count
-			if(CC.analyzed_games_cache[notation_id]
-				&& CC.analyzed_games_cache[notation_id].opening == new_opening_text
-				&& CC.analyzed_games_cache[notation_id].fen == new_fen_text) {
+			if(CC.analyzed_games_cache[notation_id] &&
+				CC.analyzed_games_cache[notation_id].opening == new_opening_text &&
+				CC.analyzed_games_cache[notation_id].fen == new_fen_text) {
 				count = CC.analyzed_games_cache[notation_id].count + 1;
 			}
 
@@ -147,10 +145,8 @@
 		},
 		flush_cache: function(msg) {
 			//found a finished game, delete cache
-			console.log(msg);
 			//this is needed because UI can re-use same element for multiple games
 			if(msg.data.game.status == 'finished') {
-				console.log('flushing');
 				CC.analyzed_games_cache = {};
 			}
 		},
