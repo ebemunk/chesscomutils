@@ -22,6 +22,11 @@ The online version uses `ccutils-bundled.min.js` which contains `chess.js`, `mou
 #Usage
 See [http://ebemunk.github.io/chesscomutils/](http://ebemunk.github.io/chesscomutils/)
 
+#Changelog
+##4 Nov 2013
+- Opening checker can now also read Analysis tabs.
+- Small performance improvement for opening classifier: rudimentary cache prevents re-calculating opening many times after opening has been established. This should cut down resource-hogging for long/fast games.
+
 #Todo
 - Ability to save to multiple different files?
 - Ability to download PGN of single game
