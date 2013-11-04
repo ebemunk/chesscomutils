@@ -62,7 +62,8 @@
 
 			if(CC.analyzed_games_cache[game_id] &&
 				CC.analyzed_games_cache[game_id].count > 4 &&
-				CC.analyzed_games_cache[game_id].opening != 'N/A') {
+				CC.analyzed_games_cache[game_id].opening != 'N/A' &&
+				CC.analyzed_games_cache[game_id].num_moves > 16) {
 				$('#ccutils_opening_moves').text(CC.analyzed_games_cache[game_id].opening);
 				$('#ccutils_opening_fen').text(CC.analyzed_games_cache[game_id].fen);
 				return;
@@ -123,7 +124,8 @@
 			CC.analyzed_games_cache[game_id] = {
 				'opening': new_opening_text,
 				'fen': new_fen_text,
-				'count': count
+				'count': count,
+				'num_moves': moves.length
 			};
 
 			//write text to green bar
@@ -174,7 +176,7 @@
 	CC.analyzed_games_cache = {};
 	setInterval(function() {
 		CC.analyzed_games_cache = {};
-	}, CC.random_minute(30, 40));
+	}, 300000); //remove cache every 5 minutes
 
 	//subscribe to /game/*
 	CC.opening_refresh();
