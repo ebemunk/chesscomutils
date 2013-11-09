@@ -142,7 +142,7 @@
 		opening_refresh: function() {
 			//run the opening checker
 			//every move comes in the /game/<id> channel, so don't rely on the timer
-			CC.game_all_channel = cometd.subscribe('/game/*', CC.get_opening);
+			CC.game_all_channel = cometd.addListener("/game/*", function(msg) { CC.get_opening(msg); });
 		},
 		//flash keyboard icon for feedback
 		flash_keyboard_icon: function() {
