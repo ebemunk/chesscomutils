@@ -2,6 +2,10 @@
 //converts scid.eco from SCID openings database to a JS object
 //open file
 $lol = file_get_contents('scid.eco', 'r');
+//remove newlines
+$lol = preg_replace('/\n\n/', '', $lol);
+//remove comments from .eco
+$lol = preg_replace('/#.*\n/', '', $lol);
 //remove all newlines except * (which marks end of opening def)
 $lol = preg_replace('/(?<!\*)\n/', '', $lol);
 //remove the * at the end of line
@@ -16,20 +20,26 @@ $lol = str_replace('" ', '"', $lol);
 $lines = explode("\n", $lol);
 
 //start constructing the js file
-$final = 'window.CC.openings = {' . PHP_EOL;
+$final = '$.extend(CC, {openings: {' . PHP_EOL;
+
+$count = 0;
 
 foreach($lines as $line) {
 	$obj = explode('"', $line);
+	var_dump($obj); echo "<br><br>";
 	$final .= "\t" . '"' . $obj[2] . '": {' . PHP_EOL;
 	$final .= "\t\t" . '"eco": "' . $obj[0] . '",' . PHP_EOL;
 	$final .= "\t\t" . '"name": "' . $obj[1] . '",' . PHP_EOL;
 	$final .= "\t\t" . '"moves": "' . $obj[2] . '"' . PHP_EOL;
 	$final .= "\t" . '},' . PHP_EOL;
+	$count++;
 }
 
-$final .= '};';
+$final .= '}});';
 
 //massive regex - remove all PGN notation from opening name
 $final = preg_replace('/[,:](( )?(\d+)(\.)(\.\.)*((\w+)(\d)((\+)?)|O-O|O-O-O)( ((\w+)(\d)((\+)?)|O-O|O-O-O))?)+(?=",)/', '', $final);
 
 file_put_contents('openings.js', $final);
+
+echo $count . ' openings parsed.';
