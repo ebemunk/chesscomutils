@@ -8,11 +8,12 @@ function extract_fen() {
 			op.move(v);
 		});
 		val.fen = op.fen(); //.replace(/ (w|b) (-|[0-9a-zA-z]*) (-|[0-9a-zA-z]*) [0-9]* [0-9]*/, '');
-		obj[val.fen] = {
-			eco: val.eco,
-			name: val.name,
-			moves: val.moves
-		};
+		// obj[val.fen] = {
+		// 	eco: val.eco,
+		// 	name: val.name,
+		// 	moves: val.moves
+		// };
+		obj[val.fen] = key;
 	});
-	console.log(Object.keys(obj).length);
+	document.write(JSON.stringify(obj));
 }
