@@ -31,7 +31,7 @@
 					op_moves = cur_opening;
 				}
 
-				var cur_fen = CC.openings_fen[game.fen()];
+				var cur_fen = CC.openings[CC.openings_fen[game.fen()]];
 				if(cur_fen) {
 					op_fen = cur_fen;
 				}
