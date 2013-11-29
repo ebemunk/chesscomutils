@@ -155,7 +155,7 @@
 		//announce opening for the current active window
 		announce_opening: function() {
 			var opening = CC.get_opening();
-			if(!opening.fen) { return; }
+			if(!opening) { return; }
 
 			var announce_text;
 
