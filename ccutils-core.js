@@ -158,7 +158,7 @@
 			var opening = CC.get_opening(true);
 			if(!opening) { return; }
 
-			var announce_text;console.log('ran');
+			var announce_text;
 
 			if(opening.moves.name == opening.fen.name) {
 				announce_text = 'Opening: (' + opening.moves.eco + ') ' + opening.moves.name;
