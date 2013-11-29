@@ -1,24 +1,3 @@
-#############################
-#
-# scid.eco
-#
-# This is the ECO classification file for Scid.
-#
-# The Scid ECO code format allows for extensions: each basic code can have
-# a lower case letter (a-z) appended, and a further level (1-4) can be
-# added to each extension. So the order of ECO codes for A00 is:
-# A00, A00a, A00a1, A00a2, A00a3, A00a4, A00b, A00b1, ..., A00z4.
-#
-# You can convert this file to PGN format with "eco2pgn" and to EPD
-# format with "eco2epd" -- these Scid programs are not compiled by
-# default so you may need to compile them first, e.g. "make eco2pgn".
-#
-# Copyright (C) 1999-2003  Shane Hudson (sgh@users.sourceforge.net)
-# Created: June 1999.
-# Last update: January 2011.
-# Scid website: http://scid.sourceforge.net/
-
-
 A00b "Barnes Opening"  1.f3 *
 A00b "Fried fox"  1.f3 e5 2.Kf2 *
 A00c "Kadas Opening"  1.h4 *
@@ -4224,9 +4203,9 @@ B07d "Pirc: Lengfellner System"  1.e4 d6 2.d4 e6 *
 B07d "Pirc: 2.d4 Nd7"  1.e4 d6 2.d4 Nd7 *
 B07d "Pirc: 2.d4 Nf6"  1.e4 d6 2.d4 Nf6 *
 B07d "Pirc: Roscher Gambit"  1.e4 d6 2.d4 Nf6 3.Nf3 *
-B07d "Pirc: 3.Nbd2"  1.e4 d6 2.d4 Nf6 3.Nbd2 *
-B07d "Pirc: 3.Nbd2 g6"  1.e4 d6 2.d4 Nf6 3.Nbd2 g6 *
-B07d "Pirc: 3.Nbd2 g6"  1.e4 d6 2.d4 Nf6 3.Nbd2 g6 4.c3 Bg7 *
+B07d "Pirc: 3.Nbd2"  1.e4 d6 2.d4 Nf6 3.Nd2 *
+B07d "Pirc: 3.Nbd2 g6"  1.e4 d6 2.d4 Nf6 3.Nd2 g6 *
+B07d "Pirc: 3.Nbd2 g6"  1.e4 d6 2.d4 Nf6 3.Nd2 g6 4.c3 Bg7 *
 B07e "Pirc: 3.f3"  1.e4 d6 2.d4 Nf6 3.f3 *
 B07f "Pirc: 3.f3 e5"  1.e4 d6 2.d4 Nf6 3.f3 e5 *
 B07f "Pirc: 3.f3 e5 Queenswap"  1.e4 d6 2.d4 Nf6 3.f3 e5 4.dxe5 dxe5 5.Qxd8+ *
@@ -8747,10 +8726,10 @@ C08j "French: Tarrasch, Open, 4.exd5 exd5 5.Ngf3 Nf6"
 C08k "French: Tarrasch, Open, 4.exd5 exd5 5.Ngf3 Nf6, 7.Bxd7"
   1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ *
 C08l "French: Tarrasch, Open, 4.exd5 exd5 5.Ngf3 Nf6, Main Line"
-  1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbd7
+  1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbxd7
   8.O-O Be7 9.dxc5 *
 C08m "French: Tarrasch, Open, 4.exd5 exd5 5.Ngf3 Nf6, Main Line, 10.Nb3"
-  1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbd7
+  1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbxd7
   8.O-O Be7 9.dxc5 Nxc5 10.Nb3 *
 
 C09a "French: Tarrasch, Open, 5.Ngf3 Nc6"
@@ -14066,7 +14045,7 @@ D30d "QGD: 3.cxd5"  1.d4 d5 2.c4 e6 3.cxd5 exd5 *
 D30d "QGD: 3.cxd5"  1.d4 d5 2.c4 e6 3.cxd5 exd5 4.Nc3 *
 D30e "QGD: 3.Bf4"  1.d4 d5 2.c4 e6 3.Bf4 *
 D30f "QGD: 3.Nf3"  1.d4 d5 2.c4 e6 3.Nf3 *
-D30g "QGD: 3.Nf3 Nbd7 (Westphalia)"  1.d4 d5 2.c4 e6 3.Nf3 Nbd7 *
+D30g "QGD: 3.Nf3 Nbd7 (Westphalia)"  1.d4 d5 2.c4 e6 3.Nf3 Nd7 *
 D30h "QGD: Tarrasch without Nc3"  1.d4 d5 2.c4 e6 3.Nf3 c5 *
 D30h "QGD: Tarrasch without Nc3: 4.e3"  1.d4 d5 2.c4 e6 3.Nf3 c5 4.e3 *
 D30h "QGD: Tarrasch without Nc3: 4.e3 Nf6"  1.d4 d5 2.c4 e6 3.Nf3 c5 4.e3 Nf6 *
@@ -15420,7 +15399,7 @@ D49g "Semi-Slav: Meran, Sozin, Stahlberg Attack"
   8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Qf3 *
 D49g "Semi-Slav: Meran, Sozin, Stahlberg Attack, 13...Bb4"
   1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Nf3 c6 5.e3 Nbd7 6.Bd3 dxc4 7.Bxc4 b5
-  8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Qf3 Bb4 *
+  8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Qf3 Bb4+ *
 D49h "Semi-Slav: Meran, Sozin, 13.Bxb5+"
   1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Nf3 c6 5.e3 Nbd7 6.Bd3 dxc4 7.Bxc4 b5
   8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Bxb5+ *
@@ -19934,7 +19913,7 @@ E81m "King's Indian: Saemisch, 5...O-O 6.Be3 c5 7.d5"
 E81n "King's Indian: Saemisch, 5...O-O 6.Be3 c5 7.dxc5"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.dxc5 *
 E81n "King's Indian: Saemisch, 5...O-O 6.Be3 c5 Queenswap"
-  1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.dxc5 dxc5 8.Qxd8+ *
+  1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.dxc5 dxc5 8.Qxd8 *
 E81o "King's Indian: Saemisch, 5...O-O 6.Be3 c5 7.Nge2"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.Nge2 *
 E81o "King's Indian: Saemisch, 5...O-O 6.Be3 c5 7.Nge2 Nc6"
@@ -20216,7 +20195,7 @@ E90h "King's Indian: Larsen, 6...c5"
 E90i "King's Indian: Larsen, 6...e5"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be3 e5 *
 E90j "King's Indian: Larsen, 6...e5, Queenswap"
-  1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be3 e5 7.dxe5 dxe5 8.Qxd8+ *
+  1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be3 e5 7.dxe5 dxe5 8.Qxd8 *
 E90k "King's Indian: 5.Nf3 O-O 6.h3"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 *
 E90l "King's Indian: 5.Nf3 O-O 6.h3 Nbd7"
@@ -20232,7 +20211,7 @@ E90n "King's Indian: 5.Nf3 O-O 6.h3 e5"
 E90n "King's Indian: 5.Nf3 O-O 6.h3 e5 7.Be3"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.Be3 *
 E90o "King's Indian: 5.Nf3 O-O 6.h3 e5 Queenswap"
-  1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.dxe5 dxe5 8.Qxd8+ *
+  1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.dxe5 dxe5 8.Qxd8 *
 E90p "King's Indian: 5.Nf3 O-O 6.h3 e5 7.d5"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.d5 *
 E90q "King's Indian: 5.Nf3 O-O 6.h3 e5 7.d5 a5"
@@ -20273,9 +20252,9 @@ E90x "King's Indian: 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5"
 E90x "King's Indian: 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5 9.exd5"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5
   9.exd5 *
-E90y "King's Indian: 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5 9.exd5 Re8"
+E90y "King's Indian: 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5 9.exd5 Re8+"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5
-  9.exd5 Re8 *
+  9.exd5 Re8+ *
 
 E91a "King's Indian: 6.Be2"
   1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be2 *
