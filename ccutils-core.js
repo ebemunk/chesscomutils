@@ -42,7 +42,7 @@
 			};
 		},
 		// get the opening of the game that has a visible notation window
-		get_opening: function() {
+		get_opening: function(override_cache) {
 			var notation = $('div[id^="notation_"]:visible');
 			if(!notation.length) { //clear if no visible notation
 				$('#ccutils_opening_moves').text('Notation window not visible.');
@@ -63,7 +63,8 @@
 			if(CC.analyzed_games_cache[game_id] &&
 				CC.analyzed_games_cache[game_id].count > 4 &&
 				CC.analyzed_games_cache[game_id].opening != 'N/A' &&
-				CC.analyzed_games_cache[game_id].num_moves > 16) {
+				CC.analyzed_games_cache[game_id].num_moves > 16 &&
+				!override_cache) {
 				$('#ccutils_opening_moves').text(CC.analyzed_games_cache[game_id].opening);
 				$('#ccutils_opening_fen').text(CC.analyzed_games_cache[game_id].fen);
 				return;
@@ -154,10 +155,10 @@
 		},
 		//announce opening for the current active window
 		announce_opening: function() {
-			var opening = CC.get_opening();
+			var opening = CC.get_opening(true);
 			if(!opening) { return; }
 
-			var announce_text;
+			var announce_text;console.log('ran');
 
 			if(opening.moves.name == opening.fen.name) {
 				announce_text = 'Opening: (' + opening.moves.eco + ') ' + opening.moves.name;
