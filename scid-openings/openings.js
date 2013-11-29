@@ -12744,20 +12744,20 @@ $.extend(CC, {openings: {
 		"name": "Pirc: Roscher Gambit",
 		"moves": "1.e4 d6 2.d4 Nf6 3.Nf3"
 	},
-	"1.e4 d6 2.d4 Nf6 3.Nbd2": {
+	"1.e4 d6 2.d4 Nf6 3.Nd2": {
 		"eco": "B07d",
 		"name": "Pirc",
-		"moves": "1.e4 d6 2.d4 Nf6 3.Nbd2"
+		"moves": "1.e4 d6 2.d4 Nf6 3.Nd2"
 	},
-	"1.e4 d6 2.d4 Nf6 3.Nbd2 g6": {
+	"1.e4 d6 2.d4 Nf6 3.Nd2 g6": {
 		"eco": "B07d",
 		"name": "Pirc",
-		"moves": "1.e4 d6 2.d4 Nf6 3.Nbd2 g6"
+		"moves": "1.e4 d6 2.d4 Nf6 3.Nd2 g6"
 	},
-	"1.e4 d6 2.d4 Nf6 3.Nbd2 g6 4.c3 Bg7": {
+	"1.e4 d6 2.d4 Nf6 3.Nd2 g6 4.c3 Bg7": {
 		"eco": "B07d",
 		"name": "Pirc",
-		"moves": "1.e4 d6 2.d4 Nf6 3.Nbd2 g6 4.c3 Bg7"
+		"moves": "1.e4 d6 2.d4 Nf6 3.Nd2 g6 4.c3 Bg7"
 	},
 	"1.e4 d6 2.d4 Nf6 3.f3": {
 		"eco": "B07e",
@@ -23474,15 +23474,15 @@ $.extend(CC, {openings: {
 		"name": "French: Tarrasch, Open, 4.exd5 exd5 5.Ngf3 Nf6",
 		"moves": "1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+"
 	},
-	"1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbd7 8.O-O Be7 9.dxc5": {
+	"1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbxd7 8.O-O Be7 9.dxc5": {
 		"eco": "C08l",
 		"name": "French: Tarrasch, Open, 4.exd5 exd5 5.Ngf3 Nf6, Main Line",
-		"moves": "1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbd7 8.O-O Be7 9.dxc5"
+		"moves": "1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbxd7 8.O-O Be7 9.dxc5"
 	},
-	"1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbd7 8.O-O Be7 9.dxc5 Nxc5 10.Nb3": {
+	"1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbxd7 8.O-O Be7 9.dxc5 Nxc5 10.Nb3": {
 		"eco": "C08m",
 		"name": "French: Tarrasch, Open, 4.exd5 exd5 5.Ngf3 Nf6, Main Line",
-		"moves": "1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbd7 8.O-O Be7 9.dxc5 Nxc5 10.Nb3"
+		"moves": "1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nf6 6.Bb5+ Bd7 7.Bxd7+ Nbxd7 8.O-O Be7 9.dxc5 Nxc5 10.Nb3"
 	},
 	"1.e4 e6 2.d4 d5 3.Nd2 c5 4.exd5 exd5 5.Ngf3 Nc6": {
 		"eco": "C09a",
@@ -37064,10 +37064,10 @@ $.extend(CC, {openings: {
 		"name": "QGD",
 		"moves": "1.d4 d5 2.c4 e6 3.Nf3"
 	},
-	"1.d4 d5 2.c4 e6 3.Nf3 Nbd7": {
+	"1.d4 d5 2.c4 e6 3.Nf3 Nd7": {
 		"eco": "D30g",
 		"name": "QGD: 3.Nf3 Nbd7 (Westphalia)",
-		"moves": "1.d4 d5 2.c4 e6 3.Nf3 Nbd7"
+		"moves": "1.d4 d5 2.c4 e6 3.Nf3 Nd7"
 	},
 	"1.d4 d5 2.c4 e6 3.Nf3 c5": {
 		"eco": "D30h",
@@ -40029,10 +40029,10 @@ $.extend(CC, {openings: {
 		"name": "Semi-Slav: Meran, Sozin, Stahlberg Attack",
 		"moves": "1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Nf3 c6 5.e3 Nbd7 6.Bd3 dxc4 7.Bxc4 b5 8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Qf3"
 	},
-	"1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Nf3 c6 5.e3 Nbd7 6.Bd3 dxc4 7.Bxc4 b5 8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Qf3 Bb4": {
+	"1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Nf3 c6 5.e3 Nbd7 6.Bd3 dxc4 7.Bxc4 b5 8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Qf3 Bb4+": {
 		"eco": "D49g",
 		"name": "Semi-Slav: Meran, Sozin, Stahlberg Attack",
-		"moves": "1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Nf3 c6 5.e3 Nbd7 6.Bd3 dxc4 7.Bxc4 b5 8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Qf3 Bb4"
+		"moves": "1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Nf3 c6 5.e3 Nbd7 6.Bd3 dxc4 7.Bxc4 b5 8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Qf3 Bb4+"
 	},
 	"1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Nf3 c6 5.e3 Nbd7 6.Bd3 dxc4 7.Bxc4 b5 8.Bd3 a6 9.e4 c5 10.e5 cxd4 11.Nxb5 Nxe5 12.Nxe5 axb5 13.Bxb5+": {
 		"eco": "D49h",
@@ -50049,10 +50049,10 @@ $.extend(CC, {openings: {
 		"name": "King's Indian: Saemisch",
 		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.dxc5"
 	},
-	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.dxc5 dxc5 8.Qxd8+": {
+	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.dxc5 dxc5 8.Qxd8": {
 		"eco": "E81n",
 		"name": "King's Indian: Saemisch, 5...O-O 6.Be3 c5 Queenswap",
-		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.dxc5 dxc5 8.Qxd8+"
+		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.dxc5 dxc5 8.Qxd8"
 	},
 	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.f3 O-O 6.Be3 c5 7.Nge2": {
 		"eco": "E81o",
@@ -50634,10 +50634,10 @@ $.extend(CC, {openings: {
 		"name": "King's Indian: Larsen",
 		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be3 e5"
 	},
-	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be3 e5 7.dxe5 dxe5 8.Qxd8+": {
+	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be3 e5 7.dxe5 dxe5 8.Qxd8": {
 		"eco": "E90j",
 		"name": "King's Indian: Larsen, 6...e5, Queenswap",
-		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be3 e5 7.dxe5 dxe5 8.Qxd8+"
+		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be3 e5 7.dxe5 dxe5 8.Qxd8"
 	},
 	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3": {
 		"eco": "E90k",
@@ -50674,10 +50674,10 @@ $.extend(CC, {openings: {
 		"name": "King's Indian",
 		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.Be3"
 	},
-	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.dxe5 dxe5 8.Qxd8+": {
+	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.dxe5 dxe5 8.Qxd8": {
 		"eco": "E90o",
 		"name": "King's Indian: 5.Nf3 O-O 6.h3 e5 Queenswap",
-		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.dxe5 dxe5 8.Qxd8+"
+		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.dxe5 dxe5 8.Qxd8"
 	},
 	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 e5 7.d5": {
 		"eco": "E90p",
@@ -50769,10 +50769,10 @@ $.extend(CC, {openings: {
 		"name": "King's Indian",
 		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5 9.exd5"
 	},
-	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5 9.exd5 Re8": {
+	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5 9.exd5 Re8+": {
 		"eco": "E90y",
 		"name": "King's Indian",
-		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5 9.exd5 Re8"
+		"moves": "1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.h3 c5 7.d5 e6 8.Bd3 exd5 9.exd5 Re8+"
 	},
 	"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be2": {
 		"eco": "E91a",
