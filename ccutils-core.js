@@ -136,6 +136,8 @@
 			if($('#ccutils_opening_fen').text() != new_fen_text) {
 				$('#ccutils_opening_fen').text(new_fen_text);
 			}
+
+			return opening;
 		},
 		//subscribe to /game/* to refresh opening checker
 		//and /service/game to flush cache
@@ -152,22 +154,21 @@
 		},
 		//announce opening for the current active window
 		announce_opening: function() {
-			var opening_moves = $('#ccutils_opening_moves').text();
-			var opening_fen = $('#ccutils_opening_fen').text();
-			var now = Math.round(new Date().getTime() / 1000);
-			if(CC.last_chat && CC.last_chat > now) {
-				return false;
+			var opening = CC.get_opening();
+			if(!opening.fen) { return; }
+
+			var announce_text;
+
+			if(opening.moves.name == opening.fen.name) {
+				announce_text = 'Opening: (' + opening.moves.eco + ') ' + opening.moves.name;
+			} else {
+				announce_text = 'Position: (' + opening.fen.eco + ') ' + opening.fen.name + ', transposed from Opening: (' + opening.moves.eco + ') ' + opening.moves.name;
 			}
-			if(opening_fen) {
-				if(opening_moves.substr(8) == opening_fen.substr(9)) {
-					$('.chatInputGameWrapper input[id^=chatInput_]:visible').first().val(opening_moves);
-				} else {
-					$('.chatInputGameWrapper input[id^=chatInput_]:visible').first().val(opening_fen);
-				}
-				$('.chatInputGameWrapper button[id^=chatInputButton_]').click();
-				CC.flash_keyboard_icon();
-				CC.last_chat = Math.round(new Date().getTime() / 1000) + 5;
-			}
+
+			$('.chatInputGameWrapper input[id^=chatInput_]:visible').first().val(announce_text);
+			$('.chatInputGameWrapper button[id^=chatInputButton_]').click();
+			CC.flash_keyboard_icon();
+			CC.last_chat = Math.round(new Date().getTime() / 1000) + 5;
 		}
 	});
 
