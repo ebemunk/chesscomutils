@@ -8431,5 +8431,4 @@ $.extend(CC, {
 "r1bq1rk1/pppnnpbp/3p2p1/2PPp3/4P3/2N5/PP2BPPP/R1BQNRK1 b - - 0 10":"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be2 e5 7.O-O Nc6 8.d5 Ne7 9.Ne1 Nd7 10.Nd3 f5 11.Bd2 c5",
 "r1bq1rk1/pppnnpbp/3p2p1/3Pp3/2P1PP2/2N5/PP2B1PP/R1BQNRK1 b - f3 0 10":"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be2 e5 7.O-O Nc6 8.d5 Ne7 9.Ne1 Nd7 10.f3 f5 11.Be3 f4",
 "r1bq1rk1/pppnnpbp/3p4/3Pp1p1/2P1PP2/2N5/PP2B1PP/R1BQNRK1 w - - 0 11":"1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 O-O 6.Be2 e5 7.O-O Nc6 8.d5 Ne7 9.Ne1 Nd7 10.f3 f5 11.Be3 f4 12.Bf2 g5 13.a4 Ng6"}
-}
 );

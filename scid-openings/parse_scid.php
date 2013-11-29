@@ -2,8 +2,6 @@
 //converts scid.eco from SCID openings database to a JS object
 //open file
 $lol = file_get_contents('scid.eco', 'r');
-//remove newlines
-$lol = preg_replace('/\n\n/', '', $lol);
 //remove comments from .eco
 $lol = preg_replace('/#.*\n/', '', $lol);
 //remove all newlines except * (which marks end of opening def)
