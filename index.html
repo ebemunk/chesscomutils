@@ -166,7 +166,7 @@
 		<div class="section">
 			<h3>Usage</h3>
 			
-			<h4>Opening Classification</h4>
+			<h4>Opening Classification <small>10,358 openings/positions</small></h4>
 			<p>chesscomutils uses <a href="http://scid.sourceforge.net/" target="_blank">SCID</a>'s opening database to classify the current game. It will display <a href="http://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings" target="_blank">ECO</a> Code, Opening Name and the moves. It will also get the opening by position (by looking at <a href="http://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation" target="_blank">FEN</a>). This is more helpful when the game transposes to a common opening from a more unorthodox opening. Note: The classification will only be shown for the game which has its notation window visible on the screen. Currently multiple windows (when you pop-out a game window) are not supported :(</p>
 			<p>The opening checker runs every 5 seconds by default, but you can force it to run by clicking on the green bar.</p>
 			
@@ -187,6 +187,10 @@
 
 		<div class="section">
 			<h3>Changelog</h3>
+			<h4>28 Nov 2013</h4>
+			<ul>
+				<li>Fixed some non-standard SAN values in scid.eco, there are a total of 10,358 openings/positions now.</li>
+			</ul>
 			<h4>27 Nov 2013</h4>
 			<ul>
 				<li>Fixed some parsing bugs in scid.eco, now more Reti openings and transpositions should be available.</li>
