@@ -141,7 +141,7 @@
 		opening_refresh: function() {
 			//run the opening checker
 			//every move comes in the /game/<id> channel, so don't rely on the timer
-			CC.game_all_channel = cometd.addListener("/game/*", function(msg) { CC.get_opening(msg); });
+			CC.game_all_channel = $.cometd.addListener("/game/*", function(msg) { CC.get_opening(msg); });
 		},
 		//flash keyboard icon for feedback
 		flash_keyboard_icon: function() {
@@ -156,11 +156,16 @@
 
 			var announce_text;
 
-			if(opening.moves.name == opening.fen.name) {
+			if(opening.moves.eco == opening.fen.eco) {
 				announce_text = 'Opening: (' + opening.moves.eco + ') ' + opening.moves.name + ' (' + (opening.moves.moves.match(/\s/g).length + 1) + '-ply)';
 			} else {
-				announce_text = 'Position: (' + opening.fen.eco + ') ' + opening.fen.name + ' (' + (opening.fen.moves.match(/\s/g).length + 1) + '-ply), transposed from Opening: (' + opening.moves.eco + ') ' + opening.moves.name;
+				if(similar_text(opening.moves.name, opening.fen.name, true) > 50) {
+					announce_text = 'Position: (' + opening.fen.eco + ') ' + opening.fen.name + ' (' + (opening.fen.moves.match(/\s/g).length + 1) + '-ply)';
+				} else {
+					announce_text = 'Position: (' + opening.fen.eco + ') ' + opening.fen.name + ' (' + (opening.fen.moves.match(/\s/g).length + 1) + '-ply), transposed from Opening: (' + opening.moves.eco + ') ' + opening.moves.name;
+				}
 			}
+
 
 			$('.chatInputGameWrapper input[id^=chatInput_]:visible').first().val(announce_text);
 			$('.chatInputGameWrapper button[id^=chatInputButton_]').click();

@@ -173,6 +173,7 @@
 					type: 'post',
 					data: {'pgn': game.pgn(), 'filename': filename}
 				});
+				console.log('WRITER REQUEST', filename);
 			}
 		},
 		//subscribe to /service/game
@@ -188,7 +189,7 @@
 				.removeClass('saving')
 				.css('color', 'white');
 
-				cometd.unsubscribe(CC.service_game_channel);
+				$.cometd.unsubscribe(CC.service_game_channel);
 			} else { //turn on
 				$('#ccutils_capture')
 				.html('Capture PGN: On')
@@ -209,7 +210,7 @@
 				 * subscribe to this channel and start listening for finished games, parse moves and send request to
 				 * local write.php for file output
 				 */
-				CC.service_game_channel = cometd.subscribe(
+				CC.service_game_channel = $.cometd.subscribe(
 					'/service/game', CC.listen
 				);
 			}
