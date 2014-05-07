@@ -792,6 +792,42 @@ var Chess = function(fen) {
     return repetition;
   }
 
+  function in_twofold_repetition() {
+    /* TODO: while this function is fine for casual use, a better
+     * implementation would use a Zobrist key (instead of FEN). the
+     * Zobrist key would be maintained in the make_move/undo_move functions,
+     * avoiding the costly that we do below.
+     */
+    var moves = [];
+    var positions = {};
+    var repetition = false;
+
+    while (true) {
+      var move = undo_move();
+      if (!move) break;
+      moves.push(move);
+    }
+
+    while (true) {
+      /* remove the last two fields in the FEN string, they're not needed
+       * when checking for draw by rep */
+      var fen = generate_fen().split(' ').slice(0,4).join(' ');
+
+      /* has the position occurred three or move times */
+      positions[fen] = (fen in positions) ? positions[fen] + 1 : 1;
+      if (positions[fen] >= 2) {
+        repetition = true;
+      }
+
+      if (!moves.length) {
+        break;
+      }
+      make_move(moves.pop());
+    }
+
+    return repetition;
+  }
+
   function push(move) {
     history.push({
       move: move,
@@ -1204,6 +1240,10 @@ var Chess = function(fen) {
 
     in_threefold_repetition: function() {
       return in_threefold_repetition();
+    },
+
+    in_twofold_repetition: function() {
+      return in_twofold_repetition();
     },
 
     game_over: function() {
@@ -2889,6 +2929,65 @@ $.extend( $.simulate.prototype, {
         define(Mousetrap);
     }
 }) (window, document);;
+function similar_text(first, second, percent) {
+  //  discuss at: http://phpjs.org/functions/similar_text/
+  // original by: Rafał Kukawski (http://blog.kukawski.pl)
+  // bugfixed by: Chris McMacken
+  // bugfixed by: Jarkko Rantavuori original by findings in stackoverflow (http://stackoverflow.com/questions/14136349/how-does-similar-text-work)
+  // improved by: Markus Padourek (taken from http://www.kevinhq.com/2012/06/php-similartext-function-in-javascript_16.html)
+  //   example 1: similar_text('Hello World!', 'Hello phpjs!');
+  //   returns 1: 7
+  //   example 2: similar_text('Hello World!', null);
+  //   returns 2: 0
+
+  if (first === null || second === null || typeof first === 'undefined' || typeof second === 'undefined') {
+    return 0;
+  }
+
+  first += '';
+  second += '';
+
+  var pos1 = 0,
+    pos2 = 0,
+    max = 0,
+    firstLength = first.length,
+    secondLength = second.length,
+    p, q, l, sum;
+
+  max = 0;
+
+  for (p = 0; p < firstLength; p++) {
+    for (q = 0; q < secondLength; q++) {
+      for (l = 0;
+        (p + l < firstLength) && (q + l < secondLength) && (first.charAt(p + l) === second.charAt(q + l)); l++)
+      ;
+      if (l > max) {
+        max = l;
+        pos1 = p;
+        pos2 = q;
+      }
+    }
+  }
+
+  sum = max;
+
+  if (sum) {
+    if (pos1 && pos2) {
+      sum += similar_text(first.substr(0, pos1), second.substr(0, pos2));
+    }
+
+    if ((pos1 + max < firstLength) && (pos2 + max < secondLength)) {
+      sum += similar_text(first.substr(pos1 + max, firstLength - pos1 - max), second.substr(pos2 + max,
+        secondLength - pos2 - max));
+    }
+  }
+
+  if (!percent) {
+    return sum;
+  } else {
+    return (sum * 200) / (firstLength + secondLength);
+  }
+};
 (function() {
 	/* jshint -W110, -W043 */
 	/* jshint unused: false */
@@ -3032,7 +3131,7 @@ $.extend( $.simulate.prototype, {
 		opening_refresh: function() {
 			//run the opening checker
 			//every move comes in the /game/<id> channel, so don't rely on the timer
-			CC.game_all_channel = cometd.addListener("/game/*", function(msg) { CC.get_opening(msg); });
+			CC.game_all_channel = $.cometd.addListener("/game/*", function(msg) { CC.get_opening(msg); });
 		},
 		//flash keyboard icon for feedback
 		flash_keyboard_icon: function() {
@@ -3047,11 +3146,16 @@ $.extend( $.simulate.prototype, {
 
 			var announce_text;
 
-			if(opening.moves.name == opening.fen.name) {
+			if(opening.moves.eco == opening.fen.eco) {
 				announce_text = 'Opening: (' + opening.moves.eco + ') ' + opening.moves.name + ' (' + (opening.moves.moves.match(/\s/g).length + 1) + '-ply)';
 			} else {
-				announce_text = 'Position: (' + opening.fen.eco + ') ' + opening.fen.name + ' (' + (opening.fen.moves.match(/\s/g).length + 1) + '-ply), transposed from Opening: (' + opening.moves.eco + ') ' + opening.moves.name;
+				if(similar_text(opening.moves.name, opening.fen.name, true) > 50) {
+					announce_text = 'Position: (' + opening.fen.eco + ') ' + opening.fen.name + ' (' + (opening.fen.moves.match(/\s/g).length + 1) + '-ply)';
+				} else {
+					announce_text = 'Position: (' + opening.fen.eco + ') ' + opening.fen.name + ' (' + (opening.fen.moves.match(/\s/g).length + 1) + '-ply), transposed from Opening: (' + opening.moves.eco + ') ' + opening.moves.name;
+				}
 			}
+
 
 			$('.chatInputGameWrapper input[id^=chatInput_]:visible').first().val(announce_text);
 			$('.chatInputGameWrapper button[id^=chatInputButton_]').click();
@@ -3360,6 +3464,7 @@ Key Bindings:\n \
 					type: 'post',
 					data: {'pgn': game.pgn(), 'filename': filename}
 				});
+				console.log('WRITER REQUEST', filename);
 			}
 		},
 		//subscribe to /service/game
@@ -3375,7 +3480,7 @@ Key Bindings:\n \
 				.removeClass('saving')
 				.css('color', 'white');
 
-				cometd.unsubscribe(CC.service_game_channel);
+				$.cometd.unsubscribe(CC.service_game_channel);
 			} else { //turn on
 				$('#ccutils_capture')
 				.html('Capture PGN: On')
@@ -3396,7 +3501,7 @@ Key Bindings:\n \
 				 * subscribe to this channel and start listening for finished games, parse moves and send request to
 				 * local write.php for file output
 				 */
-				CC.service_game_channel = cometd.subscribe(
+				CC.service_game_channel = $.cometd.subscribe(
 					'/service/game', CC.listen
 				);
 			}
@@ -3419,4 +3524,351 @@ Key Bindings:\n \
 		.append(a_capture));
 
 	$('#ccutils_capture').click();
+})();;
+(function() {
+	"use strict";
+
+	function bot(persona, myname, depth) {
+		this.myname = myname;
+
+		this.kibitz = false;
+
+		this.my_turn = undefined;
+		this.im_white = undefined;
+
+		this.depth = depth;
+		this.clocks = [undefined, undefined];
+		this.o_delta = undefined;
+		this.seq = 0;
+
+		this.persona = persona;
+
+		this.play_time_multiplier = 1;
+		this.play_times = {
+			opening: [7, 3],
+			// midgame: [8, 4],
+			panick: [4, 3],
+			scramble: [0.3, 0.2]
+		};
+
+		this.recent_capture = false;
+
+		this.godmode = false;
+
+		this.last_opponent_name = false;
+		this.rematch_counter = 0;
+		this.score = 0;
+		this.bestmove = false;
+
+		this.game = null;
+
+		this.enable = function(e) {
+			this.game_channel = cometd.addListener("/game/*", $.proxy(this.game_packet_handler, this));
+			this.end_channel = cometd.subscribe('/service/game', $.proxy(this.end_packet_handler, this));
+			// console.log('BOT: enabled');
+		};
+
+		this.disable = function() {
+			cometd.removeListener(this.game_channel);
+			cometd.unsubscribe(this.end_channel);
+			// console.log('BOT: disabled');
+		};
+
+		this.update_info = function(it) {
+			var out='<table><tr><td>My Name: '+(it.myname)+'</td><td>Im White: '+(it.im_white)+'</td></tr><tr><td>Last Opp. Name: '+(it.last_opponent_name)+'</td><td>Rematch Counter: '+(it.rematch_counter)+'</td><td>Score: '+(it.score)+'</td></tr><tr><td>Clocks: '+(it.clocks[0])+' | '+(it.clocks[1])+'</td><td>Seq: '+(it.seq)+'</td><td>O_Delta: '+(it.o_delta)+'</td></tr></table><div>Best Move:'+(it.bestmove)+'</div><div>Forced Mate:'+(it.forced_mate)+'</div>';
+			$('#bot_info').html(out);
+		}
+
+		this.end_packet_handler = function(msg) {
+			if(msg.data.tid != 'EndGame') return;
+
+			var aborted = (msg.data.codemessage == 'game.aborted_by_server');
+
+			if(!this.kibitz && !aborted) {
+				window.CC.listen(msg, this.myname+'.pgn');
+				console.log('BOT: endgame pgn save routine ran');
+
+				var opponent = msg.data.game.players[this.im_white + 0].uid;
+				if(opponent == this.last_opponent_name) {
+					this.rematch_counter++;
+				} else {
+					this.rematch_counter = 0;
+					this.last_opponent_name = opponent;
+				}
+			}
+
+			if(!$('#bot_reseek').is(':checked') && !this.kibitz) {
+				if(this.rematch_counter < 2 + Math.random()*2) {
+					window.setTimeout(function() {
+						$('button[id^=b-rematch]:visible').trigger('click');
+					}, 1000);
+				}
+
+				window.setTimeout(function() {
+					$('#new_game_pane_create_button').trigger('click');
+				}, 5500);
+			}
+
+			this.game = new Chess();
+
+			this.update_info(this);
+		};
+
+		this.game_packet_handler = function(msg) {
+			if(msg.channel == '/game/~1') return;
+
+			// console.log('BOT: game packet', msg);
+
+			if(msg.data.tid == 'FullGame') {
+				if(msg.data.game.players[0].uid != this.myname) {
+					this.im_white = false;
+				} else {
+					this.im_white = true;
+				}
+
+				this.clocks = msg.data.game.clocks;
+
+				this.game = new Chess();
+				// console.log('BOT: game start, clocks set');
+			}
+
+			if(msg.data.tid == 'GameState') {
+				if(msg.data.game.players[0].uid != this.myname) {
+					this.im_white = false;
+				} else {
+					this.im_white = true;
+				}
+
+				this.seq = msg.data.game.seq;
+
+				var opponent_index = this.im_white + 0;
+
+				// if(this.game && this.game.in_twofold_repetition()) {
+				// 	$('input[id^=b-draw]:visible').trigger('click');
+				// }
+
+				if(this.kibitz) {
+					// console.log('BOT: kibitz mode: thinking');
+					this.im_white = true;
+
+					this.think(this.get_current_fen());
+				} else {
+					if( (this.seq % 2 == 0 && !this.im_white) ||
+						(this.seq % 2 == 1 && this.im_white) ) {
+						// console.log('BOT: opponents turn next');
+						this.opponents_turn_next();
+					} else {
+						// console.log('BOT: my turn to play next: thinking');
+						this.o_delta = this.clocks[opponent_index] - msg.data.game.clocks[opponent_index];
+						this.my_turn_next();
+					}
+				}
+
+				this.clocks = msg.data.game.clocks;
+			}
+
+			this.update_info(this);
+		};
+
+		this.get_current_fen = function() {
+			var notation = $('div[id^="notation_"]:visible');
+
+			if(this.seq == 0) return 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
+			var moves = [];
+			var notations;
+			notations = notation.find('.notationVertical');
+			notations.each(function(i, v) {
+				$(v).find('.gotomove').each(function(ii, n) {
+					moves.push($(n).text());
+				});
+			});
+
+			var game = new Chess();
+
+			$.each(moves, function(i, v) {
+				game.move(v);
+			});
+
+			var history = game.history({ verbose: true });
+			if(history[history.length-1].captured) {
+				// console.log('BOT: recent capture.');
+				this.recent_capture = true;
+			} else {
+				this.recent_capture = false;
+			}
+
+			this.game = game;
+			return game.fen();
+		};
+
+		this.my_turn_next = function() {
+			// console.log('BOT: thinking', this.im_white, this.seq);
+			this.think(this.get_current_fen());
+		};
+
+		this.opponents_turn_next = function() {
+			// console.log('BOT: not thinking');
+		}
+
+		this.think = function(fen) {
+			// console.log('BOT: sending to think', fen, this.persona, this.clocks[0], this.clocks[1], this.depth);
+			$.ajax({
+				url: 'http://localhost/chesscomutils/darkside/darkside.php',
+				data: {
+					'fen': fen,
+					'persona': this.persona,
+					'wtime': this.clocks[0],
+					'btime': this.clocks[1],
+					'depth': this.depth
+				},
+				crossDomain: true,
+				dataType: "jsonp",
+				success: $.proxy(this.thought, this),
+				error: function(data) {
+					// console.log('er', data);
+				}
+			});
+		};
+
+		this.thought = function(data) {
+			// console.log('BOT: found move', data);
+			if(!this.kibitz) {
+				if(data.forced_mate == '1') {
+					if(data.score < 0) {
+						// console.log('BOT: mate in ' + data.score + ', resigning');
+						$('input[id^=b-resign-abort]:visible').trigger('click');
+						return;
+					}
+				} else {
+					if(data.score < -600) {
+						// console.log('BOT: score ' + data.score + ', resigning');
+						$('input[id^=b-resign-abort]:visible').trigger('click');
+						return;
+					}
+				}
+				this.move(data);
+			}
+
+			this.forced_mate = data.forced_mate == '1';
+			this.score = data.score;
+			this.bestmove = data.bestmove;
+
+
+			if( (this.seq % 2 == 0)) {
+				// this.score = this.score * -1;
+			} else {
+				// this.score = this.score * -1;
+			}
+
+			this.update_info(this);
+		};
+
+		this.move = function(data) {
+			// console.log('BOT: moving the piece');
+
+			var square_size = parseInt($('div[id^=letter_chessboard][id$=1]')
+				.not('.chessboard_dummy_piece')
+				.css('width'));
+
+			var raw = data.bestmove.split('');
+			var from_coord = [raw[0], raw[1]];
+			var to_coord = [raw[2], raw[3]];
+
+			var from = $('img[id^=img_chessboard][id$='+data.bestmove.substr(0,2)+']:visible').not('.chessboard_dummy_piece');
+
+			var filemap = {a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8};
+
+			var dleft = filemap[to_coord[0]] - filemap[from_coord[0]];
+			var dtop = to_coord[1] - from_coord[1];
+
+			var fpos = from.offset();
+			var tpos = {top: -dtop*square_size, left: dleft*square_size};
+
+			if(!this.im_white) {
+				tpos.top = -tpos.top;
+				tpos.left = -tpos.left;
+			}
+
+			var play_time = this.get_play_time();
+			// console.log(play_time, this.o_delta);
+
+			window.setTimeout(function() {
+				from.simulate('drag', {dx:tpos.left, dy:tpos.top});
+				// console.log('simul over');
+			}, play_time);
+		};
+
+		this.get_play_time = function() {
+			if(this.godmode) {
+				return 0;
+			}
+
+			if(this.seq < 16 && Math.random() < 0.5) {
+				return this.rnd(this.play_times.opening[0], this.play_times.opening[1]) * 100;
+			}
+
+			if(this.recent_capture) {
+				return this.rnd(this.play_times.opening[0], this.play_times.opening[1]) * 100;
+			}
+
+			if(this.clocks[!this.im_white + 0] < 70) {
+				return this.rnd(this.play_times.scramble[0], this.play_times.scramble[1]) * 100;
+			}
+
+			if(this.clocks[!this.im_white + 0] < 150) {
+				return this.rnd(this.play_times.panick[0], this.play_times.panick[1]) * 100;
+			}
+
+			return this.rnd(this.o_delta, 2) * 100;
+		};
+
+		this.rnd_snd = function() {
+			return (Math.random()*2-1)+(Math.random()*2-1)+(Math.random()*2-1);
+		};
+
+		this.rnd = function(mean, stdev) {
+			return Math.round(this.rnd_snd()*stdev+mean);
+		};
+	};
+
+	// console.log('removing');
+	$('#bot_controls').remove();
+
+	//ui additions
+	var div_wrapper = $('<div/>')
+		.attr('id', 'bot_controls')
+		.css({
+			'position': 'fixed',
+			'bottom': 0,
+			'z-index': 9,
+			'color': 'white',
+			'height': '200px',
+			'width': '50%',
+			'background': 'rgba(0,0,0,0.3)',
+			'overflow': 'scroll',
+			'padding-left': '15px'
+		})
+		.appendTo(body);
+
+	window.mybot = new bot('houdini', 'abii_91', 3);
+
+	div_wrapper.load(
+		'http://localhost/chesscomutils/darkside/bot_controls.php'
+	);
+
+	div_wrapper.on('click', '#bot_enable', $.proxy(mybot.enable, mybot));
+	div_wrapper.on('click', '#bot_disable', $.proxy(mybot.disable, mybot));
+	div_wrapper.on('change', '#bot_char', function(e) {
+		mybot.depth = $(this).val();
+		mybot.myname = $('#bot_char option:selected').text();
+		$('#bot_depth').val(mybot.depth);
+	});
+	div_wrapper.on('change', '#bot_depth', function(e) { mybot.depth = $(this).val(); });
+	div_wrapper.on('change', '#bot_kibitz', function(e) { mybot.kibitz = $(this).is(':checked'); });
+
+	$('#dialog_basics_limited').remove();
+	$('#ad_content').remove();
+
+	// console.log('ddd');
 })();
