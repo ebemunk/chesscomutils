@@ -47,11 +47,11 @@
 //files to inject passed as an array into our anonymous injector function above
 ([
 	{
-		url: 'http://localhost/chesscomutils/openings.min.js',
+		url: 'http://localhost/chesscomutils/dist/openings.min.js',
 		id: 'openings'
 	},
 	{
-		url: 'http://localhost/chesscomutils/ccutils-bundled.min.js',
-		id: 'ccutils'
+		url: 'http://localhost/chesscomutils/dist/ccutils-bundled-pgn.min.js',
+		id: 'ccutils-local'
 	}
 ]);

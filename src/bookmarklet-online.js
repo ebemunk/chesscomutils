@@ -47,11 +47,11 @@
 //files to inject passed as an array into our anonymous injector function above
 ([
 	{
-		url: 'http://ebemunk.com/chesscomutils/openings.min.js',
+		url: 'http://ebemunk.com/chesscomutils/dist/openings.min.js',
 		id: 'openings'
 	},
 	{
-		url: 'http://ebemunk.com/chesscomutils/ccutils-bundled.min.js',
+		url: 'http://ebemunk.com/chesscomutils/dist/ccutils-bundled.min.js',
 		id: 'ccutils'
 	}
 ]);
