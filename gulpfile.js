@@ -6,26 +6,39 @@ var gulp = require('gulp'),
 	;
 
 var paths = {
-	js: [
-		'src/includes/*.js',
-		'src/ccutils-core.js',
-		'src/ccutils-pgn.js'
-	],
+	js: {
+		online: [
+			'src/includes/*.js',
+			'src/ccutils-core.js',
+		],
+		local: [
+			'src/includes/*.js',
+			'src/ccutils-core.js',
+			'src/ccutils-pgn.js'
+		]
+	},
 	bookmarklets: [
 		'src/bookmarklet.js',
 		'src/bookmarklet-online.js'
 	]
 };
 
-gulp.task('js', function() {
-	return gulp.src(paths.js)
+gulp.task('js-online', function() {
+	return gulp.src(paths.js.online)
 		.pipe(concat('ccutils-bundled.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./'));
+		.pipe(gulp.dest('dist'));
+});
+
+gulp.task('js-local', function() {
+	return gulp.src(paths.js.local)
+		.pipe(concat('ccutils-bundled-pgn.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', function() {
-	gulp.start('js', 'bookmarklets');
+	gulp.start('js-local', 'js-online', 'bookmarklets');
 });
 
 gulp.task('bookmarklets', function() {
