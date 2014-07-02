@@ -1,19 +1,13 @@
 {
-  "name": "chesscomutils",
-  "version": "1.0.0",
-  "description": "",
-  "main": "Gruntfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "BSD-2-Clause",
-  "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-cssmin": "~0.7.0",
-    "grunt-contrib-watch": "~0.5.3"
-  }
+	"name": "chesscomutils",
+	"description": "UI Enchancement Bookmarklet for Live Chess in Chess.com",
+	"version": "1.0.0",
+	"private": true,
+	"devDependencies": {
+		"gulp": "*",
+		"gulp-concat": "*",
+		"gulp-uglify": "*",
+		"gulp-rename": "*",
+		"gulp-insert": "*"
+	}
 }
