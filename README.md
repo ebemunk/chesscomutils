@@ -2,6 +2,9 @@ chesscomutils
 =============
 Provides a couple of convenience functions for the Live Chess in Chess.com
 
+##DEPRECATION NOTICE - Feb 2016
+chesscomutils has been made redundant with Chess.com's new v3 (mostly), so it's time to put it to sleep. leaving it here for nostalgia 10 years later.
+
 #About
 chesscomutils is a javascript bookmarklet that adds some additional functionality for [chess.com]()'s [live chess](http://live.chess.com) app.
 
