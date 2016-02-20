@@ -76,6 +76,13 @@
 				border-bottom-color: rgb(106, 148, 63);
 				padding-bottom: 5px;
 			}
+			.deprecation {
+				color: white;
+				font-size: 16px;
+			}
+			.deprecation strong {
+				display: block;
+			}
 		</style>
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -96,16 +103,20 @@
 			<h2>UI Enhancements for <a href="http://live.chess.com/live/" target="_blank">Chess.com Live Chess</a></h2>
 			<p class="infotext">chesscomutils is a javascript bookmarklet that adds opening classification, keyboard shortcuts and PGN save functionality to the live chess interface.</p>
 			<p class="disclaimer"><i class="fa fa-asterisk"></i> chesscomutils is not affiliated with <a href="http://www.chess.com/" target="_blank">Chess.com</a>. I'm just a player who enjoys watching games (too much!) and wanted some additional features.</p>
+			<p class="deprecation">
+				<strong>Deprecation Notice - Feb 2016</strong>
+				chesscomutils has been made redundant with Chess.com's new v3 (mostly), so it's time to put it to sleep. leaving it here for nostalgia 10 years later.
+			</p>
 		</div>
 
 		<img src="ss.png" title="chesscomutils in action" style="max-width: 100%">
-		
+
 		<div>
 			<h3>About</h3>
 			<p>I love the live chess on chess.com, and I thought some additions would make it even better. Specifically, showing the opening name like <a href="http://www.chesscube.com/" target="_blank">ChessCube</a> does, and saving games to my local disk in PGN format, like <a href="http://www.chessclub.com/" target="_blank">ICC</a>'s client. Then I thought I might as well add in some keyboard shortcuts for good measure, and here we are.</p>
 			<p>Since javascript cannot access your local files, to get the PGN save functionality you need to have a local webserver with PHP enabled. More info on that can be found on the project's <code><a href="https://github.com/ebemunk/chesscomutils/blob/master/README.md" target="_blank">README.md</a></code></p>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-4 col-md-offset-2 box">
 				<div class="bookmarklet-box">
@@ -141,7 +152,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="section">
 			<h3>Setup</h3>
 
@@ -154,11 +165,11 @@
 
 		<div class="section">
 			<h3>Usage</h3>
-			
+
 			<h4>Opening Classification <small>10,358 openings/positions</small></h4>
 			<p>chesscomutils uses <a href="http://scid.sourceforge.net/" target="_blank">SCID</a>'s opening database to classify the current game. It will display <a href="http://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings" target="_blank">ECO</a> Code, Opening Name and the moves. It will also get the opening by position (by looking at <a href="http://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation" target="_blank">FEN</a>). This is more helpful when the game transposes to a common opening from a more unorthodox opening. Note: The classification will only be shown for the game which has its notation window visible on the screen. Currently multiple windows (when you pop-out a game window) are not supported :(</p>
 			<p>The opening checker runs every 5 seconds by default, but you can force it to run by clicking on the green bar.</p>
-			
+
 			<h4>Keyboard Shortcuts</h4>
 			<p>Keyboard shortcuts start with <kbd>Shift</kbd>+<kbd>C</kbd>, followed by the combination. (So you would press <kbd>Shift</kbd>+<kbd>C</kbd> followed by <kbd>S</kbd> to create a seek). Make sure you're not typing in a chat input etc. when pressing these keys.</p>
 			<ul class="list-unstyled">
@@ -168,7 +179,7 @@
 				<li><kbd>Shift</kbd>+<kbd>R</kbd> Clean Refresh. Closes all tabs and refreshes the page. Easy way to close games and get Top Games tab opened again. chesscomutils will not be attached after refresh.</li>
 				<li><kbd>Shift</kbd>+<kbd>A</kbd> Announce Opening. Outputs the opening (or position, if it's more specific) as a chat message. This will not work if there are any popped-out games. It also has a 5 second timer to prevent spamming.</li>
 			</ul>
-			
+
 			<h4>Save to PGN File</h4>
 			<p>If you're using the full version, chesscomutils will make an AJAX request to <code>writer.php</code>, which will save games (and keep appending games to the same file) defined in its config. See the notes on project <code><a href="https://github.com/ebemunk/chesscomutils/blob/master/README.md" target="_blank">README.md</a></code> for more information.</p>
 			<p>By clicking on the 'Capture PGN' button you can toggle capturing the games as PGN format. Any game that finishes while PGN Capture is on will be saved to your defined location on disk. It will provide all the standards headers (except Time Control, which is bit tricky to get), ECO and Opening headers, as well as a non-standard Position header with the FEN classification. Note: ccutils will capture all games that finish while its active. This means having multiple games open (popped-out or not) will save all of them once they finish. Games are only saved on disk when they're ended.</p>
@@ -192,7 +203,7 @@
 				<li>Small performance improvement for opening classifier: rudimentary cache prevents re-calculating opening many times after opening has been established. This should cut down resource-hogging for long/fast games.</li>
 			</ul>
 		</div>
-		
+
 		<div>
 			<h3>Credits</h3>
 			<p>I've had the pleasure of using these brilliant libraries:</p>
